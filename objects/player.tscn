@@ -13,6 +13,7 @@ size = Vector2(1, 126)
 script = ExtResource("1_uusmc")
 
 [node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(0.5, 0.5)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_kb4k6")
@@ -40,6 +41,13 @@ input_pickable = false
 [node name="CollisionShape2D" type="CollisionShape2D" parent="WallJumpDetection/WallJumpDetectorLeft"]
 position = Vector2(64, 0)
 shape = SubResource("RectangleShape2D_cxgk3")
+
+[node name="SpeedLabel" type="Label" parent="."]
+offset_left = -66.0
+offset_top = -116.0
+offset_right = 65.0
+offset_bottom = -84.0
+text = "Speed"
 
 [connection signal="body_entered" from="WallJumpDetection/WallJumpDetectorRight" to="." method="_on_wall_jump_detector_right_body_entered"]
 [connection signal="body_exited" from="WallJumpDetection/WallJumpDetectorRight" to="." method="_on_wall_jump_detector_right_body_exited"]
