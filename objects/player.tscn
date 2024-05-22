@@ -20,14 +20,28 @@ shape = SubResource("RectangleShape2D_kb4k6")
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_dj2ka")
 
-[node name="WallJumpDetector" type="Area2D" parent="."]
+[node name="WallJumpDetection" type="Node2D" parent="."]
+
+[node name="WallJumpDetectorRight" type="Area2D" parent="WallJumpDetection"]
 collision_layer = 0
 collision_mask = 2
 input_pickable = false
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="WallJumpDetector"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WallJumpDetection/WallJumpDetectorRight"]
 position = Vector2(64, 0)
 shape = SubResource("RectangleShape2D_cxgk3")
 
-[connection signal="body_entered" from="WallJumpDetector" to="." method="_on_wall_jump_detector_body_entered"]
-[connection signal="body_exited" from="WallJumpDetector" to="." method="_on_wall_jump_detector_body_exited"]
+[node name="WallJumpDetectorLeft" type="Area2D" parent="WallJumpDetection"]
+position = Vector2(-128, 0)
+collision_layer = 0
+collision_mask = 2
+input_pickable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WallJumpDetection/WallJumpDetectorLeft"]
+position = Vector2(64, 0)
+shape = SubResource("RectangleShape2D_cxgk3")
+
+[connection signal="body_entered" from="WallJumpDetection/WallJumpDetectorRight" to="." method="_on_wall_jump_detector_right_body_entered"]
+[connection signal="body_exited" from="WallJumpDetection/WallJumpDetectorRight" to="." method="_on_wall_jump_detector_right_body_exited"]
+[connection signal="body_entered" from="WallJumpDetection/WallJumpDetectorLeft" to="." method="_on_wall_jump_detector_left_body_entered"]
+[connection signal="body_exited" from="WallJumpDetection/WallJumpDetectorLeft" to="." method="_on_wall_jump_detector_left_body_exited"]
