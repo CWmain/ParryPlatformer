@@ -1,8 +1,15 @@
 extends CharacterBody2D
 
+const MAX_SPEED = 1000
+const ACC = 2000
+const DCC = 1500
 
-const SPEED = 300.0
-const AIR_SPEED = 5.0
+
+
+
+const AIR_ACC = 2500
+const SPEED = 50000.0
+const AIR_SPEED = 50000.0
 const JUMP_VELOCITY = -800.0
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
@@ -25,26 +32,27 @@ func _physics_process(delta):
 
 	if Input.is_action_just_pressed("jump") and wallJumpDirection != 0:
 		velocity.y = JUMP_VELOCITY
-		velocity.x = JUMP_VELOCITY * wallJumpDirection
+		velocity.x = SPEED  * wallJumpDirection * delta
 
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
 	var direction = Input.get_axis("left", "right")
-	if direction:
-		if is_on_floor():
-			velocity.x = direction * SPEED
+
+	if is_on_floor():
+		#If going in same direction
+		if (direction == 0):
+			velocity.x = move_toward(velocity.x, direction * MAX_SPEED, DCC * delta)
+		elif sign(direction) != sign(velocity.x):
+			velocity.x = move_toward(velocity.x, direction * MAX_SPEED, (DCC+ACC) * delta)
 		else:
-			velocity.x = move_toward(velocity.x, direction * SPEED, SPEED)
-	else:
-		if is_on_floor():
-			velocity.x = move_toward(velocity.x, 0, SPEED)
-		else:
-			velocity.x = move_toward(velocity.x, 0, AIR_SPEED)
+			velocity.x = move_toward(velocity.x, direction * MAX_SPEED, ACC * delta)
+	
+	
 
 	move_and_slide()
 
 func _on_wall_jump_detector_left_body_entered(body):
-	wallJumpDirection = -1
+	wallJumpDirection = 1
 	print("left wall jump entered ", body)
 	
 
@@ -56,7 +64,7 @@ func _on_wall_jump_detector_left_body_exited(body):
 
 
 func _on_wall_jump_detector_right_body_entered(body):
-	wallJumpDirection = 1
+	wallJumpDirection = -1
 	print("right wall jump entered ", body)
 
 
