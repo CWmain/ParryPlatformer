@@ -4,10 +4,12 @@ const MAX_SPEED = 1000
 const ACC = 2000
 const DCC = 1500
 
+const MAX_AIR_SPEED = 2000
+const AIR_ACC = 1000
+const AIR_DCC = 500
 
 
 
-const AIR_ACC = 2500
 const SPEED = 50000.0
 const AIR_SPEED = 50000.0
 const JUMP_VELOCITY = -800.0
@@ -39,17 +41,22 @@ func _physics_process(delta):
 	var direction = Input.get_axis("left", "right")
 
 	if is_on_floor():
-		#If going in same direction
-		if (direction == 0):
-			velocity.x = move_toward(velocity.x, direction * MAX_SPEED, DCC * delta)
-		elif sign(direction) != sign(velocity.x):
-			velocity.x = move_toward(velocity.x, direction * MAX_SPEED, (DCC+ACC) * delta)
-		else:
-			velocity.x = move_toward(velocity.x, direction * MAX_SPEED, ACC * delta)
+		ground_velocity(direction, delta)
 	
 	
 
 	move_and_slide()
+
+func ground_velocity(direction, delta):
+	if (direction == 0):
+		velocity.x = move_toward(velocity.x, direction * MAX_SPEED, DCC * delta)
+	
+	elif sign(direction) != sign(velocity.x):
+		velocity.x = move_toward(velocity.x, direction * MAX_SPEED, (DCC+ACC) * delta)
+	
+	else:
+		velocity.x = move_toward(velocity.x, direction * MAX_SPEED, ACC * delta)
+
 
 func _on_wall_jump_detector_left_body_entered(body):
 	wallJumpDirection = 1
