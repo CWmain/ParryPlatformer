@@ -1,17 +1,20 @@
 extends CharacterBody2D
 
+
+# Ground Speed
 const MAX_SPEED = 1000
 const ACC = 2000
 const DCC = 1500
 
+# Air Speed
 const MAX_AIR_SPEED = 2500
 const AIR_DIRECTION_CHANGE_MULTI = 2
 const AIR_ACC = 600
 const AIR_DCC = 400
 
-const SPEED = 50000.0
-const AIR_SPEED = 50000.0
+# Jump Speed
 const JUMP_VELOCITY = -800.0
+const WALL_JUMP_SPEED = 1000
 
 @onready var speed_label = $SpeedLabel
 
@@ -36,7 +39,7 @@ func _physics_process(delta):
 	# Handle wall jump
 	if Input.is_action_just_pressed("jump") and wallJumpDirection != 0:
 		velocity.y = JUMP_VELOCITY
-		velocity.x = SPEED  * wallJumpDirection * delta
+		velocity.x = WALL_JUMP_SPEED * wallJumpDirection
 
 	# Handle hold down
 	if Input.is_action_just_pressed("down") and !is_on_floor():
