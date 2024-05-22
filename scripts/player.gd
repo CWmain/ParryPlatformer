@@ -17,6 +17,7 @@ const JUMP_VELOCITY = -800.0
 const WALL_JUMP_SPEED = 1000
 
 @onready var speed_label = $SpeedLabel
+@onready var grapple_hook = $GrappleHook
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
@@ -44,6 +45,13 @@ func _physics_process(delta):
 	# Handle hold down
 	if Input.is_action_just_pressed("down") and !is_on_floor():
 		velocity.y = -JUMP_VELOCITY
+
+	if Input.is_action_just_pressed("grapple"):
+		print("here\n")
+		grapple_hook.isGrappling = true
+
+	if Input.is_action_just_released("grapple"):
+		grapple_hook.isGrappling = false
 
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
