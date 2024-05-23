@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://d2s44qn8phn1q" path="res://sprites/grapple_tip.png" id="4_fqinw"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8vxl2"]
+size = Vector2(16, 16)
 
 [node name="GrappleHook" type="Node2D"]
 script = ExtResource("1_8ahqd")
@@ -17,19 +18,21 @@ texture = ExtResource("2_pxbsi")
 
 [node name="Rope" type="TextureRect" parent="."]
 offset_left = -8.0
-offset_top = -16.0
 offset_right = 8.0
-pivot_offset = Vector2(8, 16)
+offset_bottom = 16.0
+pivot_offset = Vector2(8, 0)
 texture = ExtResource("3_v8wnh")
 stretch_mode = 1
 
-[node name="Tip" type="Sprite2D" parent="Rope"]
-position = Vector2(0, -16)
+[node name="GrappleTip" type="CharacterBody2D" parent="."]
+collision_layer = 0
+collision_mask = 4
+motion_mode = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GrappleTip"]
+shape = SubResource("RectangleShape2D_8vxl2")
+
+[node name="Tip" type="Sprite2D" parent="GrappleTip"]
 texture = ExtResource("4_fqinw")
 centered = false
-
-[node name="Area2D" type="Area2D" parent="Rope/Tip"]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Rope/Tip/Area2D"]
-position = Vector2(8, 0)
-shape = SubResource("RectangleShape2D_8vxl2")
+offset = Vector2(-8, -8)

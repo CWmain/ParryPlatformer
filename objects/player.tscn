@@ -13,6 +13,8 @@ size = Vector2(1, 126)
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_uusmc")
 
+[node name="GrappleHook" parent="." instance=ExtResource("3_olwds")]
+
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(0.5, 0.5)
 
@@ -49,8 +51,6 @@ offset_top = -116.0
 offset_right = 65.0
 offset_bottom = -84.0
 text = "Speed"
-
-[node name="GrappleHook" parent="." instance=ExtResource("3_olwds")]
 
 [connection signal="body_entered" from="WallJumpDetection/WallJumpDetectorRight" to="." method="_on_wall_jump_detector_right_body_entered"]
 [connection signal="body_exited" from="WallJumpDetection/WallJumpDetectorRight" to="." method="_on_wall_jump_detector_right_body_exited"]

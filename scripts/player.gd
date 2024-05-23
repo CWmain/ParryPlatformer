@@ -46,12 +46,11 @@ func _physics_process(delta):
 	if Input.is_action_just_pressed("down") and !is_on_floor():
 		velocity.y = -JUMP_VELOCITY
 
-	if Input.is_action_just_pressed("grapple"):
-		print("here\n")
-		grapple_hook.isGrappling = true
+	if Input.is_action_pressed("grapple"):
+		grapple_hook.shoot_grapple()
 
 	if Input.is_action_just_released("grapple"):
-		grapple_hook.isGrappling = false
+		grapple_hook.release_grapple()
 
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
