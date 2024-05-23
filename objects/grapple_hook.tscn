@@ -30,7 +30,7 @@ one_shot = true
 
 [node name="GrappleTip" type="CharacterBody2D" parent="."]
 collision_layer = 0
-collision_mask = 4
+collision_mask = 12
 motion_mode = 1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="GrappleTip"]

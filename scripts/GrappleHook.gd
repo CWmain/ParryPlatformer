@@ -1,4 +1,5 @@
 extends Node2D
+class_name grapple_point
 
 
 @export var _cross_hair_radius : float = 200
@@ -11,6 +12,7 @@ extends Node2D
 
 var isGrappling: bool = false
 var grappleOut: bool = false
+var hooked: bool = false
 
 var _mouse_pos_normal: Vector2 = Vector2(1,0)
 var _grapple_normal: Vector2 = Vector2(1,0)
@@ -37,8 +39,14 @@ func _physics_process(_delta):
 
 			grappleOut = true
 			_grapple_tip.velocity = _grapple_normal * _grapple_rope_speed
-			if _grapple_tip.move_and_collide(_grapple_tip.velocity * _delta):
-				print("Collision")
+			var collision : KinematicCollision2D = _grapple_tip.move_and_collide(_grapple_tip.velocity * _delta)
+			if collision:
+				if collision.get_collider().collision_layer == 8:
+					print("Pull Player")
+					hooked = true
+				print("Collision Parent: ", collision.get_collider().get_parent().name)
+				print("Collision Parent: ", collision.get_collider().collision_layer)
+
 				release_grapple()
 		
 		# Reached max length
@@ -46,6 +54,9 @@ func _physics_process(_delta):
 			_grapple_tip.position = _grapple_normal*_grapple_length
 			release_grapple()
 
+	elif hooked:
+		print("pull player")
+	
 	else:
 		if _grapple_tip.position.distance_to(Vector2(0,0)) > 50:
 			#_grapple_tip.rotation = _grapple_tip.position.angle_to(to_local(Vector2(0,0))) - PI/4
@@ -59,7 +70,7 @@ func _physics_process(_delta):
 
 func shoot_grapple():
 	if !grappleOut:
-		_grapple_tip.collision_mask = 4
+		_grapple_tip.collision_mask = 12
 		_grapple_tip.rotation = _cross_hair.position.angle() + PI / 2
 		#Update shoot direction
 		_grapple_normal = _mouse_pos_normal.normalized()

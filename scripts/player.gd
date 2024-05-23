@@ -52,6 +52,10 @@ func _physics_process(delta):
 	if Input.is_action_just_released("grapple"):
 		grapple_hook.release_grapple()
 
+	if grapple_hook.hooked:
+		velocity.y = JUMP_VELOCITY
+		grapple_hook.hooked = false
+
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
 	var direction = Input.get_axis("left", "right")
