@@ -13,6 +13,7 @@ class_name grapple_point
 var isGrappling: bool = false
 var grappleOut: bool = false
 var hooked: bool = false
+var hooked_loc: Vector2 = Vector2(0,0)
 
 var _mouse_pos_normal: Vector2 = Vector2(1,0)
 var _grapple_normal: Vector2 = Vector2(1,0)
@@ -35,17 +36,19 @@ func _process(_delta):
 	
 func _physics_process(_delta):
 	if isGrappling:
-		if _grapple_tip.position.distance_to(Vector2(0,0)) < _grapple_length:
-
+		# If grapple hasn't reached max length, increase it
+		var grappleReachedMaxLength: bool = _grapple_tip.position.distance_to(Vector2(0,0)) < _grapple_length
+		if grappleReachedMaxLength:
 			grappleOut = true
 			_grapple_tip.velocity = _grapple_normal * _grapple_rope_speed
+			
+			#On the occurance of collision
 			var collision : KinematicCollision2D = _grapple_tip.move_and_collide(_grapple_tip.velocity * _delta)
 			if collision:
-				if collision.get_collider().collision_layer == 8:
-					print("Pull Player")
+				if collision.get_collider().get_class() != "TileMap" and collision.get_collider().collision_layer == 8:
+					# When hooked is set to true, triggers behviour in player
+					hooked_loc = collision.get_collider().get_parent().position
 					hooked = true
-				print("Collision Parent: ", collision.get_collider().get_parent().name)
-				print("Collision Parent: ", collision.get_collider().collision_layer)
 
 				release_grapple()
 		
@@ -53,23 +56,21 @@ func _physics_process(_delta):
 		if _grapple_tip.position.distance_to(Vector2(0,0)) >= _grapple_length:
 			_grapple_tip.position = _grapple_normal*_grapple_length
 			release_grapple()
-
-	elif hooked:
-		print("pull player")
 	
 	else:
 		if _grapple_tip.position.distance_to(Vector2(0,0)) > 50:
-			#_grapple_tip.rotation = _grapple_tip.position.angle_to(to_local(Vector2(0,0))) - PI/4
 			_grapple_tip.velocity = _grapple_tip.position.normalized() * -_grapple_rope_speed
 			_grapple_tip.move_and_collide(_grapple_tip.velocity * _delta)
 		else:
 			_grapple_tip.position = Vector2(0,0)
+			# Start timer when grapple is fully retracted
 			if grapple_cooldown.is_stopped():
 				grapple_cooldown.start()
 	
 
 func shoot_grapple():
 	if !grappleOut:
+		# When grappling enable collision mask on GrappleBlock and Grapple
 		_grapple_tip.collision_mask = 12
 		_grapple_tip.rotation = _cross_hair.position.angle() + PI / 2
 		#Update shoot direction
@@ -78,9 +79,9 @@ func shoot_grapple():
 		isGrappling = true
 		
 func release_grapple():
-	#_grapple_tip.rotation = _grapple_tip.position.angle_to(Vector2(0,0)) + PI/2
-	isGrappling = false
+	# Turn off collision mask on return to prevent hook from getting stuck 
 	_grapple_tip.collision_mask = 0
+	isGrappling = false
 	
 
 

@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://ceja1rm67aiex"]
+
+[ext_resource type="Texture2D" uid="uid://dlkybajn3d8yq" path="res://sprites/hook_point.png" id="1_d8w5t"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_jnh67"]
+radius = 34.0147
+
+[node name="Grapple_Point" type="Node2D"]
+
+[node name="HookSprite" type="Sprite2D" parent="."]
+texture = ExtResource("1_d8w5t")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+collision_layer = 8
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+shape = SubResource("CircleShape2D_jnh67")

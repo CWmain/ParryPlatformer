@@ -11,6 +11,7 @@ const MAX_AIR_SPEED = 2500
 const AIR_DIRECTION_CHANGE_MULTI = 2
 const AIR_ACC = 600
 const AIR_DCC = 400
+const GRAPPLE_SPEED = 2000
 
 # Jump Speed
 const JUMP_VELOCITY = -800.0
@@ -53,8 +54,10 @@ func _physics_process(delta):
 		grapple_hook.release_grapple()
 
 	if grapple_hook.hooked:
-		velocity.y = JUMP_VELOCITY
+		print(grapple_hook.hooked_loc)
+		velocity = (grapple_hook.hooked_loc - position).normalized() * GRAPPLE_SPEED
 		grapple_hook.hooked = false
+		move_and_slide()
 
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
