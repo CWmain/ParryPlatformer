@@ -14,7 +14,7 @@ const AIR_DCC = 400
 const GRAPPLE_SPEED = 2000
 
 # Jump Speed
-const JUMP_VELOCITY = -800.0
+const JUMP_VELOCITY = -1200.0
 const WALL_JUMP_SPEED = 1000
 
 @onready var grapple_hook = $GrappleHook
@@ -44,7 +44,7 @@ func _physics_process(delta):
 
 	# Handle hold down
 	if Input.is_action_just_pressed("down") and !is_on_floor():
-		velocity.y = -JUMP_VELOCITY
+		velocity.y = -JUMP_VELOCITY*2
 
 	if Input.is_action_pressed("grapple"):
 		grapple_hook.shoot_grapple()

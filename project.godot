@@ -57,6 +57,10 @@ grapple={
 2d_physics/layer_4="Grapple"
 2d_physics/layer_5="PullTo"
 
+[physics]
+
+2d/default_gravity=2500.0
+
 [rendering]
 
 textures/canvas_textures/default_texture_filter=0
