@@ -15,7 +15,7 @@ var _isGrappling: bool = false
 var _grappleOut: bool = false
 
 # When hooked_loc is non zero player logic makes the player go towards the hooked location
-var hooked_loc: Vector2 = Vector2(0,0)
+var hooked_loc: Vector2 = Vector2.ZERO
 var hooked_object: Pullable = null
 
 var _mouse_pos_normal: Vector2 = Vector2(1,0)
@@ -44,7 +44,7 @@ func _physics_process(_delta):
 	
 	#Pull object logic
 	if hooked_object:
-		if _grapple_tip.position.distance_to(Vector2(0,0)) < _grapple_drop_distance:
+		if _grapple_tip.position.distance_to(Vector2.ZERO) < _grapple_drop_distance:
 			
 			hooked_object.follow_hook(to_global(_grapple_tip.position.normalized()*_grapple_drop_distance))
 			print("Not Pulling")
@@ -78,7 +78,7 @@ func grapple_shoot_and_return(_delta):
 		_grappleOut = true
 		
 		# If grapple hasn't reached max length, increase it
-		var grappleReachedMaxLength: bool = _grapple_tip.position.distance_to(Vector2(0,0)) >= _grapple_length
+		var grappleReachedMaxLength: bool = _grapple_tip.position.distance_to(Vector2.ZERO) >= _grapple_length
 		if !grappleReachedMaxLength:
 			
 			_grapple_tip.velocity = _grapple_normal * _grapple_rope_speed
@@ -90,18 +90,18 @@ func grapple_shoot_and_return(_delta):
 				release_grapple()
 		
 		# Reached max length
-		grappleReachedMaxLength = _grapple_tip.position.distance_to(Vector2(0,0)) >= _grapple_length
-		if _grapple_tip.position.distance_to(Vector2(0,0)) >= _grapple_length:
+		grappleReachedMaxLength = _grapple_tip.position.distance_to(Vector2.ZERO) >= _grapple_length
+		if _grapple_tip.position.distance_to(Vector2.ZERO) >= _grapple_length:
 			_grapple_tip.position = _grapple_normal*_grapple_length
 			release_grapple()
 	
 	# Grapple Returning
 	else:
-		if _grapple_tip.position.distance_to(Vector2(0,0)) > 50:
+		if _grapple_tip.position.distance_to(Vector2.ZERO) > 50:
 			_grapple_tip.velocity = _grapple_tip.position.normalized() * _grapple_rope_speed * -1
 			_grapple_tip.move_and_collide(_grapple_tip.velocity * _delta)
 		else:
-			_grapple_tip.position = Vector2(0,0)
+			_grapple_tip.position = Vector2.ZERO
 			# Start timer when grapple is fully retracted
 			if grapple_cooldown.is_stopped():
 				grapple_cooldown.start()
