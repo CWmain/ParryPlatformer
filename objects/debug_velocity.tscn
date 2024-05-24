@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://n7wy7cpo38pj"]
+
+[ext_resource type="Script" path="res://scripts/DebugVelocity.gd" id="1_r7vxt"]
+
+[node name="DebugVelocity" type="Label"]
+offset_right = 40.0
+offset_bottom = 23.0
+script = ExtResource("1_r7vxt")

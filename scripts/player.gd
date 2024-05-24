@@ -17,7 +17,6 @@ const GRAPPLE_SPEED = 2000
 const JUMP_VELOCITY = -800.0
 const WALL_JUMP_SPEED = 1000
 
-@onready var speed_label = $SpeedLabel
 @onready var grapple_hook = $GrappleHook
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
@@ -68,7 +67,6 @@ func _physics_process(delta):
 	else:
 		air_velocity(direction, delta)
 	
-	speed_label.text = "%v" % velocity
 	move_and_slide()
 
 # Directly modifies velocity.x

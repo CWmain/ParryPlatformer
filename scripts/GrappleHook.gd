@@ -5,6 +5,7 @@ class_name grapple_point
 @export var _cross_hair_radius : float = 200
 @export var _grapple_length : float = 200
 @export var _grapple_rope_speed : float = 5000
+@export var _grapple_drop_distance: float = 100
 @onready var _cross_hair = $CrossHair
 
 @onready var _rope = $Rope
@@ -13,10 +14,12 @@ class_name grapple_point
 var isGrappling: bool = false
 var grappleOut: bool = false
 var hooked: bool = false
+var hooked_object: Pullable = null
 var hooked_loc: Vector2 = Vector2(0,0)
 
 var _mouse_pos_normal: Vector2 = Vector2(1,0)
 var _grapple_normal: Vector2 = Vector2(1,0)
+
 
 @onready var _grapple_tip = $GrappleTip
 
@@ -45,10 +48,18 @@ func _physics_process(_delta):
 			#On the occurance of collision
 			var collision : KinematicCollision2D = _grapple_tip.move_and_collide(_grapple_tip.velocity * _delta)
 			if collision:
-				if collision.get_collider().get_class() != "TileMap" and collision.get_collider().collision_layer == 8:
-					# When hooked is set to true, triggers behviour in player
-					hooked_loc = collision.get_collider().get_parent().position
-					hooked = true
+				var isTileMap = collision.get_collider().get_class() == "TileMap"
+				if !isTileMap:
+					var isGrapplable = collision.get_collider().collision_layer & 8 == 8
+					var isPullable = collision.get_collider().collision_layer & 16 == 16
+					if isGrapplable:
+						# When hooked is set to true, triggers behviour in player
+						hooked_loc = collision.get_collider().get_parent().position
+						hooked = true
+
+					if isPullable:
+						hooked_object = collision.get_collider()
+
 
 				release_grapple()
 		
@@ -67,11 +78,21 @@ func _physics_process(_delta):
 			if grapple_cooldown.is_stopped():
 				grapple_cooldown.start()
 	
+	#Pull object logic
+	if hooked_object:
+		if _grapple_tip.position.distance_to(Vector2(0,0)) < _grapple_drop_distance:
+			
+			hooked_object.follow_hook(to_global(_grapple_tip.position.normalized()*_grapple_drop_distance))
+			print("Not Pulling")
+			hooked_object = null
+		else:
+			print("Pulling")
+			hooked_object.follow_hook(to_global(_grapple_tip.position))
 
 func shoot_grapple():
 	if !grappleOut:
 		# When grappling enable collision mask on GrappleBlock and Grapple
-		_grapple_tip.collision_mask = 12
+		_grapple_tip.collision_mask = 28
 		_grapple_tip.rotation = _cross_hair.position.angle() + PI / 2
 		#Update shoot direction
 		_grapple_normal = _mouse_pos_normal.normalized()

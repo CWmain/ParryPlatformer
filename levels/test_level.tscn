@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://r01k1x7t216y"]
+[gd_scene load_steps=8 format=3 uid="uid://r01k1x7t216y"]
 
 [ext_resource type="PackedScene" uid="uid://b4qjpodd7kvoc" path="res://objects/player.tscn" id="1_180av"]
 [ext_resource type="Texture2D" uid="uid://5hnn81diydxj" path="res://icon.svg" id="1_i5so7"]
 [ext_resource type="PackedScene" uid="uid://ceja1rm67aiex" path="res://objects/grapple_point.tscn" id="2_eyrr3"]
+[ext_resource type="PackedScene" uid="uid://c6wsiq3rqr4bl" path="res://objects/moveable_box.tscn" id="4_a5wxg"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_kumvf"]
 texture = ExtResource("1_i5so7")
@@ -44,3 +45,6 @@ layer_0/tile_data = PackedInt32Array(0, 0, 0, 1, 0, 0, 2, 0, 0, 3, 0, 0, 4, 0, 0
 
 [node name="CharacterBody2D" parent="." instance=ExtResource("1_180av")]
 position = Vector2(71, -74)
+
+[node name="MoveableBox" parent="." instance=ExtResource("4_a5wxg")]
+position = Vector2(80, -440)
