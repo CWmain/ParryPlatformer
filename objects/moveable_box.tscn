@@ -12,6 +12,7 @@ size = Vector2(129, 129)
 
 [node name="MoveableBox" type="CharacterBody2D"]
 collision_layer = 17
+platform_on_leave = 2
 script = ExtResource("1_jufui")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

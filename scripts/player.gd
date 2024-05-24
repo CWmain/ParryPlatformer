@@ -18,6 +18,7 @@ const JUMP_VELOCITY = -1200.0
 const WALL_JUMP_SPEED = 1000
 
 @onready var grapple_hook = $GrappleHook
+@onready var coyote_time = $coyoteTime
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
@@ -25,17 +26,26 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 # Left : Right
 var wallJumpDirection: int = 0
 
+func _ready():
+	coyote_time.stop()
+
 func _physics_process(delta):
+	
+	#
+	if is_on_floor():
+		coyote_time.start()
+	
 	# Add the gravity.
-	if not is_on_floor():
+	if coyote_time.is_stopped():
 		velocity.y += gravity * delta
 
 	if wallJumpDirection != 0:
 		velocity.y = gravity * delta
 
 	# Handle jump.
-	if Input.is_action_just_pressed("jump") and is_on_floor():
+	if Input.is_action_just_pressed("jump") and !coyote_time.is_stopped():
 		velocity.y = JUMP_VELOCITY
+		coyote_time.stop()
 
 	# Handle wall jump
 	if Input.is_action_just_pressed("jump") and wallJumpDirection != 0:
@@ -106,3 +116,7 @@ func _on_wall_jump_detector_right_body_entered(body):
 func _on_wall_jump_detector_right_body_exited(body):
 	wallJumpDirection = 0
 	print("right wall jump exited ", body)
+
+
+func _on_coyote_time_timeout():
+	coyote_time.stop()

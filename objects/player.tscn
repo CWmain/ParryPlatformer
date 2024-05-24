@@ -12,6 +12,7 @@ size = Vector2(126, 126)
 size = Vector2(1, 126)
 
 [node name="Player" type="CharacterBody2D"]
+platform_on_leave = 2
 script = ExtResource("1_uusmc")
 
 [node name="GrappleHook" parent="." instance=ExtResource("3_olwds")]
@@ -52,7 +53,11 @@ offset_top = -108.0
 offset_right = 19.0
 offset_bottom = -85.0
 
+[node name="coyoteTime" type="Timer" parent="."]
+wait_time = 0.1
+
 [connection signal="body_entered" from="WallJumpDetection/WallJumpDetectorRight" to="." method="_on_wall_jump_detector_right_body_entered"]
 [connection signal="body_exited" from="WallJumpDetection/WallJumpDetectorRight" to="." method="_on_wall_jump_detector_right_body_exited"]
 [connection signal="body_entered" from="WallJumpDetection/WallJumpDetectorLeft" to="." method="_on_wall_jump_detector_left_body_entered"]
 [connection signal="body_exited" from="WallJumpDetection/WallJumpDetectorLeft" to="." method="_on_wall_jump_detector_left_body_exited"]
+[connection signal="timeout" from="coyoteTime" to="." method="_on_coyote_time_timeout"]
