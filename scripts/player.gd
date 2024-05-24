@@ -52,10 +52,10 @@ func _physics_process(delta):
 	if Input.is_action_just_released("grapple"):
 		grapple_hook.release_grapple()
 
-	if grapple_hook.hooked:
+	if grapple_hook.hooked_loc != Vector2.ZERO:
 		print(grapple_hook.hooked_loc)
 		velocity = (grapple_hook.hooked_loc - position).normalized() * GRAPPLE_SPEED
-		grapple_hook.hooked = false
+		grapple_hook.hooked_loc = Vector2.ZERO
 		move_and_slide()
 
 	# Get the input direction and handle the movement/deceleration.

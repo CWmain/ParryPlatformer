@@ -11,13 +11,11 @@ class_name grapple_point
 @onready var _rope = $Rope
 @onready var grapple_cooldown = $GrappleCooldown
 
-var isGrappling: bool = false
-var grappleOut: bool = false
+var _isGrappling: bool = false
+var _grappleOut: bool = false
 
-# When hooked is true player logic makes the player go towards the hooked location
-var hooked: bool = false
+# When hooked_loc is non zero player logic makes the player go towards the hooked location
 var hooked_loc: Vector2 = Vector2(0,0)
-
 var hooked_object: Pullable = null
 
 var _mouse_pos_normal: Vector2 = Vector2(1,0)
@@ -67,7 +65,6 @@ func collision_logic(collision: KinematicCollision2D) -> void:
 	if isGrapplable:
 		# When hooked is set to true, triggers behviour in player
 		hooked_loc = collision.get_collider().get_parent().position
-		hooked = true
 		return
 
 	var isPullable = collision.get_collider().collision_layer & 16 == 16
@@ -76,9 +73,9 @@ func collision_logic(collision: KinematicCollision2D) -> void:
 		return
 
 func grapple_shoot_and_return(_delta):
-	if isGrappling:
+	if _isGrappling:
 		
-		grappleOut = true
+		_grappleOut = true
 		
 		# If grapple hasn't reached max length, increase it
 		var grappleReachedMaxLength: bool = _grapple_tip.position.distance_to(Vector2(0,0)) >= _grapple_length
@@ -110,21 +107,21 @@ func grapple_shoot_and_return(_delta):
 				grapple_cooldown.start()
 
 func shoot_grapple():
-	if !grappleOut:
+	if !_grappleOut:
 		# When grappling enable collision mask on GrappleBlock and Grapple
 		_grapple_tip.collision_mask = 28
 		_grapple_tip.rotation = _cross_hair.position.angle() + PI / 2
 		#Update shoot direction
 		_grapple_normal = _mouse_pos_normal.normalized()
 		#Toggle is grappling
-		isGrappling = true
+		_isGrappling = true
 		
 func release_grapple():
 	# Turn off collision mask on return to prevent hook from getting stuck 
 	_grapple_tip.collision_mask = 0
-	isGrappling = false
+	_isGrappling = false
 	
 
 
 func _on_grapple_cooldown_timeout():
-	grappleOut = false
+	_grappleOut = false
