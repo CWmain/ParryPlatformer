@@ -54,11 +54,10 @@ offset_right = 19.0
 offset_bottom = -85.0
 
 [node name="coyoteTime" type="Timer" parent="."]
-wait_time = 10.0
+wait_time = 0.1
 one_shot = true
 
 [connection signal="body_entered" from="WallJumpDetection/WallJumpDetectorRight" to="." method="_on_wall_jump_detector_right_body_entered"]
 [connection signal="body_exited" from="WallJumpDetection/WallJumpDetectorRight" to="." method="_on_wall_jump_detector_right_body_exited"]
 [connection signal="body_entered" from="WallJumpDetection/WallJumpDetectorLeft" to="." method="_on_wall_jump_detector_left_body_entered"]
 [connection signal="body_exited" from="WallJumpDetection/WallJumpDetectorLeft" to="." method="_on_wall_jump_detector_left_body_exited"]
-[connection signal="timeout" from="coyoteTime" to="." method="_on_coyote_time_timeout"]
