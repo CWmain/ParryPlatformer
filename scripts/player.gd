@@ -31,7 +31,6 @@ func _ready():
 
 func _physics_process(delta):
 	
-	#
 	if is_on_floor():
 		coyote_time.start()
 	
@@ -116,7 +115,3 @@ func _on_wall_jump_detector_right_body_entered(body):
 func _on_wall_jump_detector_right_body_exited(body):
 	wallJumpDirection = 0
 	print("right wall jump exited ", body)
-
-
-func _on_coyote_time_timeout():
-	coyote_time.stop()
