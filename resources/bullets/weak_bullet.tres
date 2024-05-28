@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="Base_Bullet" load_steps=2 format=3 uid="uid://cdbia0jixa78u"]
+
+[ext_resource type="Script" path="res://resources/bullets/base_bullet.gd" id="1_xxvuc"]
+
+[resource]
+script = ExtResource("1_xxvuc")
+damage = 1
+speed = Vector2(100, 100)

@@ -1,9 +1,11 @@
-[gd_scene load_steps=8 format=3 uid="uid://r01k1x7t216y"]
+[gd_scene load_steps=10 format=3 uid="uid://r01k1x7t216y"]
 
 [ext_resource type="PackedScene" uid="uid://b4qjpodd7kvoc" path="res://objects/player.tscn" id="1_180av"]
 [ext_resource type="Texture2D" uid="uid://5hnn81diydxj" path="res://icon.svg" id="1_i5so7"]
 [ext_resource type="PackedScene" uid="uid://ceja1rm67aiex" path="res://objects/grapple_point.tscn" id="2_eyrr3"]
 [ext_resource type="PackedScene" uid="uid://c6wsiq3rqr4bl" path="res://objects/moveable_box.tscn" id="4_a5wxg"]
+[ext_resource type="PackedScene" uid="uid://dkgxwbagtxmfm" path="res://objects/basic_foe.tscn" id="5_3bmnq"]
+[ext_resource type="PackedScene" uid="uid://b2cwqllmegun5" path="res://objects/bullet.tscn" id="6_yitgc"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_kumvf"]
 texture = ExtResource("1_i5so7")
@@ -48,3 +50,9 @@ position = Vector2(71, -74)
 
 [node name="MoveableBox" parent="." instance=ExtResource("4_a5wxg")]
 position = Vector2(-532, -423)
+
+[node name="BasicFoe" parent="." instance=ExtResource("5_3bmnq")]
+position = Vector2(-1135, -155)
+
+[node name="Bullet" parent="." instance=ExtResource("6_yitgc")]
+position = Vector2(115, -545)

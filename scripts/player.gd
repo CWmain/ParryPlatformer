@@ -100,6 +100,9 @@ func air_velocity(direction, delta):
 	else:
 		velocity.x = move_toward(velocity.x, direction * MAX_AIR_SPEED, AIR_ACC * delta)
 
+func is_shot(damage: int):
+	print("Takes %d damage!!!" % damage)
+
 func _on_wall_jump_detector_left_body_entered(body):
 	wallJumpDirection = 1
 	print("left wall jump entered ", body)

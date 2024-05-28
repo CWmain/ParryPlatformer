@@ -1,8 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://c6wsiq3rqr4bl"]
+[gd_scene load_steps=6 format=3 uid="uid://dkgxwbagtxmfm"]
 
-[ext_resource type="Script" path="res://scripts/moveable_box.gd" id="1_jufui"]
-[ext_resource type="Texture2D" uid="uid://5hnn81diydxj" path="res://icon.svg" id="1_r3f00"]
-[ext_resource type="PackedScene" uid="uid://n7wy7cpo38pj" path="res://objects/debug_velocity.tscn" id="3_4xbb1"]
+[ext_resource type="Script" path="res://scripts/BasicFoe.gd" id="1_y5mv1"]
+[ext_resource type="Texture2D" uid="uid://5hnn81diydxj" path="res://icon.svg" id="2_jdhv4"]
+[ext_resource type="PackedScene" uid="uid://n7wy7cpo38pj" path="res://objects/debug_velocity.tscn" id="3_16o8l"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3exf4"]
 size = Vector2(128, 128)
@@ -10,10 +10,10 @@ size = Vector2(128, 128)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tg22w"]
 size = Vector2(129, 129)
 
-[node name="MoveableBox" type="CharacterBody2D"]
+[node name="BasicFoe" type="CharacterBody2D"]
 collision_layer = 17
 platform_on_leave = 2
-script = ExtResource("1_jufui")
+script = ExtResource("1_y5mv1")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_3exf4")
@@ -21,9 +21,9 @@ shape = SubResource("RectangleShape2D_3exf4")
 [node name="Sprite2D" type="Sprite2D" parent="."]
 modulate = Color(0, 1, 0, 1)
 self_modulate = Color(0, 1, 0, 1)
-texture = ExtResource("1_r3f00")
+texture = ExtResource("2_jdhv4")
 
-[node name="DebugVelocity" parent="." instance=ExtResource("3_4xbb1")]
+[node name="DebugVelocity" parent="." instance=ExtResource("3_16o8l")]
 offset_left = -19.0
 offset_top = -100.0
 offset_right = 21.0
