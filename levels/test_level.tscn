@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://ceja1rm67aiex" path="res://objects/grapple_point.tscn" id="2_eyrr3"]
 [ext_resource type="PackedScene" uid="uid://c6wsiq3rqr4bl" path="res://objects/moveable_box.tscn" id="4_a5wxg"]
 [ext_resource type="PackedScene" uid="uid://dkgxwbagtxmfm" path="res://objects/basic_foe.tscn" id="5_3bmnq"]
-[ext_resource type="PackedScene" uid="uid://b2cwqllmegun5" path="res://objects/bullet.tscn" id="6_yitgc"]
+[ext_resource type="PackedScene" uid="uid://b7dnbf67fq86k" path="res://objects/gun.tscn" id="7_mb7cv"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_kumvf"]
 texture = ExtResource("1_i5so7")
@@ -54,5 +54,10 @@ position = Vector2(-532, -423)
 [node name="BasicFoe" parent="." instance=ExtResource("5_3bmnq")]
 position = Vector2(-1135, -155)
 
-[node name="Bullet" parent="." instance=ExtResource("6_yitgc")]
-position = Vector2(115, -545)
+[node name="Gun" parent="." instance=ExtResource("7_mb7cv")]
+position = Vector2(276, -429)
+rotation = 2.5403
+
+[node name="Gun2" parent="." instance=ExtResource("7_mb7cv")]
+position = Vector2(179, -429)
+rotation = 0.494198

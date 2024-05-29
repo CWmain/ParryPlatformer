@@ -1,14 +1,20 @@
-extends CharacterBody2D
+extends Area2D
 
 @export var bullet_stats: Base_Bullet
+var velocity: Vector2 = Vector2.ZERO
 
 func _ready():
 	velocity = bullet_stats.speed
 
 func _physics_process(delta):
-	var collision = move_and_collide(velocity*delta)
-	if collision:
-		var collision_object: Object = collision.get_collider()
-		if collision_object.has_method("is_shot"):
-			collision_object.is_shot(bullet_stats.damage)
-		queue_free()
+	position += velocity*delta
+
+
+
+func _on_body_entered(body):
+
+	if body.has_method("is_shot"):
+		bullet_stats.hit_effect(body)
+
+	queue_free()
+

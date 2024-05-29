@@ -1,4 +1,8 @@
 extends CharacterBody2D
+class_name Player
+
+#Player Stats
+@export var health: int = 5
 
 
 # Ground Speed

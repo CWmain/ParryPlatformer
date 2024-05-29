@@ -4,5 +4,5 @@
 
 [resource]
 script = ExtResource("1_xxvuc")
-damage = 1
+damage = 2
 speed = Vector2(100, 100)

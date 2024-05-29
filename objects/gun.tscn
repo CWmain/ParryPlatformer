@@ -9,3 +9,8 @@ script = ExtResource("1_ny68y")
 [node name="GunSprite" type="Sprite2D" parent="."]
 position = Vector2(-32, 1)
 texture = ExtResource("1_m4cyx")
+
+[node name="FireGunTimer" type="Timer" parent="."]
+autostart = true
+
+[connection signal="timeout" from="FireGunTimer" to="." method="_on_fire_gun_timer_timeout"]
