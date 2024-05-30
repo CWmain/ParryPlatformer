@@ -13,6 +13,7 @@ size = Vector2(126, 126)
 size = Vector2(1, 126)
 
 [node name="Player" type="CharacterBody2D"]
+collision_layer = 33
 platform_on_leave = 2
 script = ExtResource("1_uusmc")
 

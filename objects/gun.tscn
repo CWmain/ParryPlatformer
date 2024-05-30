@@ -7,7 +7,7 @@
 script = ExtResource("1_ny68y")
 
 [node name="GunSprite" type="Sprite2D" parent="."]
-position = Vector2(-32, 1)
+position = Vector2(32, 0)
 texture = ExtResource("1_m4cyx")
 
 [node name="FireGunTimer" type="Timer" parent="."]
