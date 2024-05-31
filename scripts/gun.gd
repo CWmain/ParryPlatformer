@@ -9,9 +9,6 @@ var bullet_type = preload("res://objects/bullet.tscn")
 func _ready():
 	fire_gun_timer.wait_time = firerate
 
-func _physics_process(delta):
-	pass#rotation += rotation_speed*delta
-
 func fire_gun():
 	var b = bullet_type.instantiate()
 	
@@ -19,7 +16,8 @@ func fire_gun():
 	get_tree().get_root().add_child(b)
 
 	# Set the velocity to be at the correct angle from the gun
-	b.velocity = b.velocity.length() * Vector2.from_angle(rotation)
+	var mult = -1 if scale.x < 0 else 1
+	b.velocity = b.velocity.length() * Vector2.from_angle(rotation) * mult
 	
 	
 	# Set the position to be the front of the gun in the global space (otherwise spawns at (0,0))

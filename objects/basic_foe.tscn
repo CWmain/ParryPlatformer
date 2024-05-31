@@ -51,5 +51,9 @@ monitorable = false
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="PlayerDetectorRight"]
 polygon = PackedVector2Array(0, 64, 1000, 500, 1000, -500, 0, -64)
 
+[node name="Swap" type="Timer" parent="."]
+autostart = true
+
 [connection signal="body_entered" from="PlayerDetectorRight" to="." method="_on_player_detector_right_body_entered"]
 [connection signal="body_exited" from="PlayerDetectorRight" to="." method="_on_player_detector_right_body_exited"]
+[connection signal="timeout" from="Swap" to="." method="_on_swap_timeout"]
