@@ -11,9 +11,13 @@ func _physics_process(delta):
 	if not is_on_floor():
 		velocity.y += gravity * delta
 	if trackPlayer:
+		
 		#If the player has just turned around, the position is already updated to be correct
 		if !_justSwapped:
+			#Attempt to shoot if off cooldown
 			gun.rotation = (to_global(gun.position).angle_to_point(trackPlayer.position))
+			gun.fire_gun()
+			
 		if _justSwapped:
 			_justSwapped = false
 
