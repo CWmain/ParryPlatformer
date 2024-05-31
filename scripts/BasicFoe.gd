@@ -2,6 +2,7 @@ extends Pullable
 
 @onready var gun = $Gun
 @onready var player_detector_right = $PlayerDetectorRight
+@onready var swap = $Swap
 
 var _justSwapped: bool = false
 var trackPlayer: Object = null
@@ -11,7 +12,7 @@ func _physics_process(delta):
 	if not is_on_floor():
 		velocity.y += gravity * delta
 	if trackPlayer:
-		
+		swap.stop()
 		#If the player has just turned around, the position is already updated to be correct
 		if !_justSwapped:
 			#Attempt to shoot if off cooldown
@@ -20,7 +21,9 @@ func _physics_process(delta):
 			
 		if _justSwapped:
 			_justSwapped = false
-
+	else:
+		if swap.is_stopped():
+			swap.start()
 	move_and_slide()
 
 
