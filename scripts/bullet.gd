@@ -1,5 +1,8 @@
 extends Area2D
 
+
+@onready var sprite_2d = $Sprite2D
+
 @export var bullet_stats: Base_Bullet
 var velocity: Vector2 = Vector2.ZERO
 
@@ -10,7 +13,9 @@ func _physics_process(delta):
 	position += velocity*delta
 
 func parry():
-	velocity *= -10
+	velocity *= -5
+	sprite_2d.modulate = Color("blue")
+	
 
 func _on_body_entered(body):
 

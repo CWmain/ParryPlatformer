@@ -47,7 +47,7 @@ shape = SubResource("RectangleShape2D_tg22w")
 
 [node name="Gun" parent="." instance=ExtResource("4_yg5yv")]
 position = Vector2(64, 1)
-shotResetTimer = 0.3
+shotResetTimer = 0.5
 
 [node name="PlayerDetectorRight" type="Area2D" parent="."]
 position = Vector2(64, 0)
