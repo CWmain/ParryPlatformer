@@ -24,12 +24,16 @@ const WALL_JUMP_SPEED = 1000
 @onready var grapple_hook = $GrappleHook
 @onready var sword = $Sword
 @onready var coyote_time = $coyoteTime
+@onready var ledge_detection = $LedgeDetection
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 # -1 : 0 : 1
 # Left : Right
 var wallJumpDirection: int = 0
+var _on_ledge: bool = false
+var _on_ledge_pos: bool = false
+
 
 func _ready():
 	coyote_time.stop()
@@ -43,6 +47,7 @@ func _physics_process(delta):
 	if coyote_time.is_stopped():
 		velocity.y += gravity * delta
 
+	# On a wall add drag velocity
 	if wallJumpDirection != 0:
 		velocity.y = gravity * delta
 
@@ -59,6 +64,13 @@ func _physics_process(delta):
 	# Handle hold down
 	if Input.is_action_just_pressed("down") and !is_on_floor():
 		velocity.y = -JUMP_VELOCITY*2
+	# On a ledge set velcoity.y to zero
+	if _on_ledge:
+		# 64 comes from the height of the player from 0,0
+		velocity.y = 0
+		if !_on_ledge_pos:
+			position.y -= 1 
+		
 
 	# Handle Grapple
 	if Input.is_action_pressed("grapple"):
@@ -90,7 +102,7 @@ func _physics_process(delta):
 		ground_velocity(direction, delta)
 	else:
 		air_velocity(direction, delta)
-	
+
 	move_and_slide()
 
 func place_sword_way_player_is_facing():
@@ -142,3 +154,12 @@ func _on_wall_jump_detector_right_body_entered(body):
 func _on_wall_jump_detector_right_body_exited(body):
 	wallJumpDirection = 0
 	print("right wall jump exited ", body)
+
+
+func _on_ledge_detection_on_ledge_change():
+	_on_ledge = !_on_ledge
+
+
+
+func _on_ledge_detection_correct_position_change():
+	_on_ledge_pos != _on_ledge_pos

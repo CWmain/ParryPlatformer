@@ -61,5 +61,4 @@ position = Vector2(24, 56)
 shape = ExtResource("3_jt8yt")
 debug_color = Color(0.619633, 0.35453, 1, 0.42)
 
-[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
 [connection signal="area_entered" from="ParryBox" to="." method="_on_parry_box_area_entered"]

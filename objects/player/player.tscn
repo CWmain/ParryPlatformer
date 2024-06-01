@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://b4qjpodd7kvoc"]
+[gd_scene load_steps=10 format=3 uid="uid://b4qjpodd7kvoc"]
 
 [ext_resource type="Texture2D" uid="uid://5hnn81diydxj" path="res://icon.svg" id="1_dj2ka"]
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_uusmc"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://n7wy7cpo38pj" path="res://objects/debug_velocity.tscn" id="4_n22yn"]
 [ext_resource type="PackedScene" uid="uid://dxvd60q3sgysx" path="res://objects/debug_health.tscn" id="5_vgujm"]
 [ext_resource type="PackedScene" uid="uid://bmod306dnao1" path="res://objects/player/sword.tscn" id="6_ximwp"]
+[ext_resource type="PackedScene" uid="uid://sw65234kjawo" path="res://objects/player/ledge_detection.tscn" id="7_1dgyi"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kb4k6"]
 size = Vector2(126, 126)
@@ -14,7 +15,7 @@ size = Vector2(126, 126)
 size = Vector2(1, 126)
 
 [node name="Player" type="CharacterBody2D"]
-collision_layer = 33
+collision_layer = 32
 platform_on_leave = 2
 script = ExtResource("1_uusmc")
 
@@ -71,7 +72,12 @@ one_shot = true
 [node name="Sword" parent="." instance=ExtResource("6_ximwp")]
 position = Vector2(64, 0)
 
+[node name="LedgeDetection" parent="." instance=ExtResource("7_1dgyi")]
+position = Vector2(32, -64)
+
 [connection signal="body_entered" from="WallJumpDetection/WallJumpDetectorRight" to="." method="_on_wall_jump_detector_right_body_entered"]
 [connection signal="body_exited" from="WallJumpDetection/WallJumpDetectorRight" to="." method="_on_wall_jump_detector_right_body_exited"]
 [connection signal="body_entered" from="WallJumpDetection/WallJumpDetectorLeft" to="." method="_on_wall_jump_detector_left_body_entered"]
 [connection signal="body_exited" from="WallJumpDetection/WallJumpDetectorLeft" to="." method="_on_wall_jump_detector_left_body_exited"]
+[connection signal="correct_position_change" from="LedgeDetection" to="." method="_on_ledge_detection_correct_position_change"]
+[connection signal="on_ledge_change" from="LedgeDetection" to="." method="_on_ledge_detection_on_ledge_change"]
