@@ -2,6 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://dnh7qj54xcl6p" path="res://sprites/sword.png" id="1_q71x5"]
 [ext_resource type="Script" path="res://scripts/sword.gd" id="1_xqgig"]
+[ext_resource type="Shape2D" uid="uid://b1ciq5knn8pgm" path="res://objects/player/sword_hitbox.tres" id="3_jt8yt"]
 
 [sub_resource type="Animation" id="Animation_webmv"]
 resource_name = "swing"
@@ -18,14 +19,23 @@ tracks/0/keys = {
 "update": 0,
 "values": [3.14159, 0.0]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ParryBox:collision_mask")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [64, 0]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_03wsg"]
 _data = {
 "swing": SubResource("Animation_webmv")
 }
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_pvmtj"]
-size = Vector2(48, 95)
 
 [node name="Sword" type="Node2D"]
 script = ExtResource("1_xqgig")
@@ -41,13 +51,14 @@ libraries = {
 }
 
 [node name="ParryBox" type="Area2D" parent="."]
+position = Vector2(0, -63)
 collision_layer = 0
 collision_mask = 64
 monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ParryBox"]
-position = Vector2(24, -0.5)
-shape = SubResource("RectangleShape2D_pvmtj")
+position = Vector2(24, 56)
+shape = ExtResource("3_jt8yt")
 debug_color = Color(0.619633, 0.35453, 1, 0.42)
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

@@ -60,20 +60,27 @@ func _physics_process(delta):
 	if Input.is_action_just_pressed("down") and !is_on_floor():
 		velocity.y = -JUMP_VELOCITY*2
 
+	# Handle Grapple
 	if Input.is_action_pressed("grapple"):
 		grapple_hook.shoot_grapple()
 
 	if Input.is_action_just_released("grapple"):
 		grapple_hook.release_grapple()
 
-	if Input.is_action_just_pressed("attack"):
-		sword.attack()
-
+	# Handle moving player to grapple location
 	if grapple_hook.hooked_loc != Vector2.ZERO:
 		print(grapple_hook.hooked_loc)
 		velocity = (grapple_hook.hooked_loc - position).normalized() * GRAPPLE_SPEED
 		grapple_hook.hooked_loc = Vector2.ZERO
 		move_and_slide()
+	
+	
+	place_sword_way_player_is_facing()
+	
+	# Handle sword swing
+	if Input.is_action_just_pressed("attack"):
+		sword.attack()
+
 
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
@@ -85,6 +92,15 @@ func _physics_process(delta):
 		air_velocity(direction, delta)
 	
 	move_and_slide()
+
+func place_sword_way_player_is_facing():
+	var _mouse_pos = get_global_mouse_position()
+	if _mouse_pos.x > position.x:
+		sword.position = Vector2(64, 0)
+		sword.scale = Vector2(1,1)
+	else:
+		sword.scale = Vector2(-1,1)
+		sword.position = Vector2(-64, 0)
 
 # Directly modifies velocity.x
 func ground_velocity(direction, delta):

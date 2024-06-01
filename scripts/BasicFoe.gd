@@ -6,6 +6,7 @@ extends Pullable
 
 var _justSwapped: bool = false
 var trackPlayer: Object = null
+var health = 5
 
 func _physics_process(delta):
 	# Add the gravity.
@@ -26,6 +27,8 @@ func _physics_process(delta):
 			swap.start()
 	move_and_slide()
 
+func is_shot():
+	print("Foe Shoot")
 
 func _on_player_detector_right_body_entered(body):
 	trackPlayer = body
