@@ -9,7 +9,8 @@ func _ready():
 func _physics_process(delta):
 	position += velocity*delta
 
-
+func parry():
+	velocity *= -1
 
 func _on_body_entered(body):
 

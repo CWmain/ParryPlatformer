@@ -22,6 +22,7 @@ const JUMP_VELOCITY = -1200.0
 const WALL_JUMP_SPEED = 1000
 
 @onready var grapple_hook = $GrappleHook
+@onready var sword = $Sword
 @onready var coyote_time = $coyoteTime
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
@@ -64,6 +65,9 @@ func _physics_process(delta):
 
 	if Input.is_action_just_released("grapple"):
 		grapple_hook.release_grapple()
+
+	if Input.is_action_just_pressed("attack"):
+		sword.attack()
 
 	if grapple_hook.hooked_loc != Vector2.ZERO:
 		print(grapple_hook.hooked_loc)
