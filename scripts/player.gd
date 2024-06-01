@@ -64,12 +64,12 @@ func _physics_process(delta):
 	# Handle hold down
 	if Input.is_action_just_pressed("down") and !is_on_floor():
 		velocity.y = -JUMP_VELOCITY*2
+	
 	# On a ledge set velcoity.y to zero
 	if _on_ledge:
-		# 64 comes from the height of the player from 0,0
 		velocity.y = 0
 		if !_on_ledge_pos:
-			position.y -= 1 
+			position.y -= 0.5
 		
 
 	# Handle Grapple
@@ -156,10 +156,10 @@ func _on_wall_jump_detector_right_body_exited(body):
 	print("right wall jump exited ", body)
 
 
-func _on_ledge_detection_on_ledge_change():
-	_on_ledge = !_on_ledge
+func _on_ledge_detection_on_ledge_change(value):
+	_on_ledge = value
 
 
 
-func _on_ledge_detection_correct_position_change():
-	_on_ledge_pos != _on_ledge_pos
+func _on_ledge_detection_correct_position_change(value):
+	_on_ledge_pos = value
