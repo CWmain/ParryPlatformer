@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scripts/moveable_box.gd" id="1_jufui"]
 [ext_resource type="Texture2D" uid="uid://5hnn81diydxj" path="res://icon.svg" id="1_r3f00"]
-[ext_resource type="PackedScene" uid="uid://n7wy7cpo38pj" path="res://objects/debug_velocity.tscn" id="3_4xbb1"]
+[ext_resource type="PackedScene" uid="uid://n7wy7cpo38pj" path="res://objects/debug/debug_velocity.tscn" id="3_4xbb1"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3exf4"]
 size = Vector2(128, 128)

@@ -2,8 +2,8 @@
 
 [ext_resource type="Script" path="res://scripts/BasicFoe.gd" id="1_y5mv1"]
 [ext_resource type="Texture2D" uid="uid://5hnn81diydxj" path="res://icon.svg" id="2_jdhv4"]
-[ext_resource type="PackedScene" uid="uid://n7wy7cpo38pj" path="res://objects/debug_velocity.tscn" id="3_16o8l"]
-[ext_resource type="PackedScene" uid="uid://dxvd60q3sgysx" path="res://objects/debug_health.tscn" id="4_e8po8"]
+[ext_resource type="PackedScene" uid="uid://n7wy7cpo38pj" path="res://objects/debug/debug_velocity.tscn" id="3_16o8l"]
+[ext_resource type="PackedScene" uid="uid://dxvd60q3sgysx" path="res://objects/debug/debug_health.tscn" id="4_e8po8"]
 [ext_resource type="PackedScene" uid="uid://b7dnbf67fq86k" path="res://objects/gun.tscn" id="4_yg5yv"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3exf4"]

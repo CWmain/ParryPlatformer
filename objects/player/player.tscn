@@ -1,10 +1,11 @@
-[gd_scene load_steps=10 format=3 uid="uid://b4qjpodd7kvoc"]
+[gd_scene load_steps=11 format=3 uid="uid://b4qjpodd7kvoc"]
 
 [ext_resource type="Texture2D" uid="uid://5hnn81diydxj" path="res://icon.svg" id="1_dj2ka"]
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_uusmc"]
 [ext_resource type="PackedScene" uid="uid://brcbjs6gq08tt" path="res://objects/player/grapple_hook.tscn" id="3_olwds"]
-[ext_resource type="PackedScene" uid="uid://n7wy7cpo38pj" path="res://objects/debug_velocity.tscn" id="4_n22yn"]
-[ext_resource type="PackedScene" uid="uid://dxvd60q3sgysx" path="res://objects/debug_health.tscn" id="5_vgujm"]
+[ext_resource type="PackedScene" uid="uid://n7wy7cpo38pj" path="res://objects/debug/debug_velocity.tscn" id="4_j7fty"]
+[ext_resource type="PackedScene" uid="uid://dxvd60q3sgysx" path="res://objects/debug/debug_health.tscn" id="5_2385i"]
+[ext_resource type="PackedScene" uid="uid://chhnnhml6anrf" path="res://objects/debug/debug_position.tscn" id="6_pon4x"]
 [ext_resource type="PackedScene" uid="uid://bmod306dnao1" path="res://objects/player/sword.tscn" id="6_ximwp"]
 [ext_resource type="PackedScene" uid="uid://sw65234kjawo" path="res://objects/player/ledge_detection.tscn" id="7_1dgyi"]
 
@@ -51,19 +52,25 @@ input_pickable = false
 position = Vector2(64, 0)
 shape = SubResource("RectangleShape2D_cxgk3")
 
-[node name="DebugVelocity" parent="." instance=ExtResource("4_n22yn")]
+[node name="DebugVelocity" parent="." instance=ExtResource("4_j7fty")]
 offset_left = -21.0
 offset_top = -108.0
 offset_right = 19.0
 offset_bottom = -85.0
 text = "1"
 
-[node name="DebugHealth" parent="." instance=ExtResource("5_vgujm")]
+[node name="DebugHealth" parent="." instance=ExtResource("5_2385i")]
 offset_left = -20.0
 offset_top = -131.0
 offset_right = 20.0
 offset_bottom = -108.0
 text = "1"
+
+[node name="DebugPosition" parent="." instance=ExtResource("6_pon4x")]
+offset_left = -19.0
+offset_top = -175.0
+offset_right = 21.0
+offset_bottom = -152.0
 
 [node name="coyoteTime" type="Timer" parent="."]
 wait_time = 0.1
@@ -79,5 +86,4 @@ position = Vector2(32, -64)
 [connection signal="body_exited" from="WallJumpDetection/WallJumpDetectorRight" to="." method="_on_wall_jump_detector_right_body_exited"]
 [connection signal="body_entered" from="WallJumpDetection/WallJumpDetectorLeft" to="." method="_on_wall_jump_detector_left_body_entered"]
 [connection signal="body_exited" from="WallJumpDetection/WallJumpDetectorLeft" to="." method="_on_wall_jump_detector_left_body_exited"]
-[connection signal="correct_position_change" from="LedgeDetection" to="." method="_on_ledge_detection_correct_position_change"]
 [connection signal="on_ledge_change" from="LedgeDetection" to="." method="_on_ledge_detection_on_ledge_change"]

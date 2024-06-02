@@ -9,9 +9,5 @@ script = ExtResource("1_ntmll")
 position = Vector2(0, -32)
 rotation = -1.57079
 
-[node name="PosSet" type="RayCast2D" parent="."]
-position = Vector2(0, -1)
-rotation = -1.57079
-
 [node name="WallDection" type="RayCast2D" parent="."]
 rotation = -1.57079

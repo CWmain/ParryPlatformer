@@ -32,7 +32,6 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 # Left : Right
 var wallJumpDirection: int = 0
 var _on_ledge: bool = false
-var _on_ledge_pos: bool = false
 
 
 func _ready():
@@ -51,8 +50,14 @@ func _physics_process(delta):
 	if wallJumpDirection != 0:
 		velocity.y = gravity * delta
 
+	# On a ledge set velcoity.y to zero
+	if _on_ledge:
+		velocity.y = 0
+		coyote_time.start()
+
 	# Handle jump.
 	if Input.is_action_just_pressed("jump") and !coyote_time.is_stopped():
+		_on_ledge = false
 		velocity.y = JUMP_VELOCITY
 		coyote_time.stop()
 
@@ -65,13 +70,6 @@ func _physics_process(delta):
 	if Input.is_action_just_pressed("down") and !is_on_floor():
 		velocity.y = -JUMP_VELOCITY*2
 	
-	# On a ledge set velcoity.y to zero
-	if _on_ledge:
-		velocity.y = 0
-		if !_on_ledge_pos:
-			position.y -= 0.5
-		
-
 	# Handle Grapple
 	if Input.is_action_pressed("grapple"):
 		grapple_hook.shoot_grapple()
@@ -158,8 +156,7 @@ func _on_wall_jump_detector_right_body_exited(body):
 
 func _on_ledge_detection_on_ledge_change(value):
 	_on_ledge = value
-
-
-
-func _on_ledge_detection_correct_position_change(value):
-	_on_ledge_pos = value
+	if value:
+		var toCloset = fmod(position.y, 128)
+		var shift = 64 if position.y < 0 else -64
+		position.y = position.y + toCloset - shift if fmod(position.y + toCloset, 128) == 0 else position.y - toCloset - shift
