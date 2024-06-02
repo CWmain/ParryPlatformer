@@ -85,7 +85,7 @@ func _physics_process(delta):
 		move_and_slide()
 	
 	
-	place_sword_way_player_is_facing()
+	face_mouse()
 	
 	# Handle sword swing
 	if Input.is_action_just_pressed("attack"):
@@ -103,14 +103,26 @@ func _physics_process(delta):
 
 	move_and_slide()
 
-func place_sword_way_player_is_facing():
+func face_mouse():
 	var _mouse_pos = get_global_mouse_position()
+	place_sword_way_player_is_facing(_mouse_pos)
+	place_ledge_grab_detection_way_player_is_facing(_mouse_pos)
+
+func place_sword_way_player_is_facing(_mouse_pos: Vector2):
 	if _mouse_pos.x > position.x:
 		sword.position = Vector2(64, 0)
 		sword.scale = Vector2(1,1)
 	else:
 		sword.scale = Vector2(-1,1)
 		sword.position = Vector2(-64, 0)
+
+func place_ledge_grab_detection_way_player_is_facing(_mouse_pos: Vector2):
+	if _mouse_pos.x > position.x:
+		ledge_detection.position = Vector2(32, -64)
+		ledge_detection.scale = Vector2(1,1)
+	else:
+		ledge_detection.scale = Vector2(-1,1)
+		ledge_detection.position = Vector2(-32, -64)
 
 # Directly modifies velocity.x
 func ground_velocity(direction, delta):
