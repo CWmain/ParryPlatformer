@@ -67,6 +67,7 @@ attack={
 2d_physics/layer_5="PullTo"
 2d_physics/layer_6="Player"
 2d_physics/layer_7="Parryable"
+2d_physics/layer_8="LedgeGrab"
 
 [physics]
 
