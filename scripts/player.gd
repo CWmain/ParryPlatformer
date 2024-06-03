@@ -52,6 +52,7 @@ func _physics_process(delta):
 
 	# On a ledge set velcoity.y to zero
 	if _on_ledge:
+		# The code to move the player to the ledge is in _on_ledge_detection_on_ledge_change(value)
 		velocity.y = 0
 		coyote_time.start()
 
@@ -169,6 +170,8 @@ func _on_wall_jump_detector_right_body_exited(body):
 func _on_ledge_detection_on_ledge_change(value):
 	_on_ledge = value
 	if value:
-		var toCloset = fmod(position.y, 128)
-		var shift = 64 if position.y < 0 else -64
-		position.y = position.y + toCloset - shift if fmod(position.y + toCloset, 128) == 0 else position.y - toCloset - shift
+		var tileMapSize = 128;
+		var playerShift = 64;
+		var toCloset = fmod(position.y, tileMapSize)
+		var shift = playerShift if position.y < 0 else -playerShift
+		position.y = (position.y + toCloset - shift) if fmod(position.y + toCloset, tileMapSize) == 0 else (position.y - toCloset - shift)
