@@ -174,4 +174,5 @@ func _on_ledge_detection_on_ledge_change(value):
 		var playerShift = 64;
 		var toCloset = fmod(position.y, tileMapSize)
 		var shift = playerShift if position.y < 0 else -playerShift
+		# The below equation sets the player position such that the head aligns with the top of the tile
 		position.y = (position.y + toCloset - shift) if fmod(position.y + toCloset, tileMapSize) == 0 else (position.y - toCloset - shift)
