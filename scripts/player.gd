@@ -21,6 +21,10 @@ const GRAPPLE_SPEED = 2000
 const JUMP_VELOCITY = -1200.0
 const WALL_JUMP_SPEED = 1000
 
+# On wall speed
+const WALL_DRAG_SPEED = 50
+const WALL_DRAG_SPEED_DOWN = 500
+
 @onready var grapple_hook = $GrappleHook
 @onready var sword = $Sword
 @onready var coyote_time = $coyoteTime
@@ -46,9 +50,18 @@ func _physics_process(delta):
 	if coyote_time.is_stopped():
 		velocity.y += gravity * delta
 
-	# On a wall add drag velocity
-	if wallJumpDirection != 0:
-		velocity.y = gravity * delta
+	# Handle hold down
+	if Input.is_action_pressed("down"):
+		_on_ledge = false
+		if wallJumpDirection != 0:
+			velocity.y += WALL_DRAG_SPEED_DOWN * delta
+			
+		elif Input.is_action_just_pressed("down") and !is_on_floor():
+			velocity.y = -JUMP_VELOCITY
+	
+	# On a wall add drag velocity if down is not held
+	elif wallJumpDirection != 0:
+		velocity.y = WALL_DRAG_SPEED
 
 	# On a ledge set velcoity.y to zero
 	if _on_ledge:
@@ -67,9 +80,8 @@ func _physics_process(delta):
 		velocity.y = JUMP_VELOCITY
 		velocity.x = WALL_JUMP_SPEED * wallJumpDirection
 
-	# Handle hold down
-	if Input.is_action_just_pressed("down") and !is_on_floor():
-		velocity.y = -JUMP_VELOCITY*2
+	
+			
 	
 	# Handle Grapple
 	if Input.is_action_pressed("grapple"):
