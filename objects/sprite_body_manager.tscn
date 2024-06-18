@@ -1,0 +1,121 @@
+[gd_scene load_steps=8 format=3 uid="uid://d2ydpn4hplqxs"]
+
+[ext_resource type="Texture2D" uid="uid://dtfgqluau0r0b" path="res://sprites/PlayerBody/PBody.png" id="1_j4kpc"]
+[ext_resource type="Script" path="res://scripts/sprite_body_manager.gd" id="1_w7nxv"]
+[ext_resource type="Texture2D" uid="uid://bvn1quotqbkhg" path="res://sprites/PlayerBody/PHead.png" id="2_lqlds"]
+[ext_resource type="Texture2D" uid="uid://ckncqhjkvd5gv" path="res://sprites/PlayerBody/PLimb.png" id="3_5oagx"]
+
+[sub_resource type="Animation" id="Animation_vayrj"]
+resource_name = "idle"
+length = 2.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Body/LArm:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1, 2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [-1.5708, -2.35619, -1.5708]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Body/Head:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1, 2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0, -0.523599, 0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Body/RArm:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1, 2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [-1.5708, -0.785398, -1.5708]
+}
+
+[sub_resource type="Animation" id="Animation_pn37k"]
+resource_name = "walk"
+length = 0.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Body/LLeg:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0, -0.523599, 0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Body/RLeg:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0, 0.523599, 0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_t3rli"]
+_data = {
+"idle": SubResource("Animation_vayrj"),
+"walk": SubResource("Animation_pn37k")
+}
+
+[node name="SpriteBodyManager" type="Node2D"]
+script = ExtResource("1_w7nxv")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_t3rli")
+}
+
+[node name="Body" type="Sprite2D" parent="."]
+texture = ExtResource("1_j4kpc")
+
+[node name="Head" type="Sprite2D" parent="Body"]
+position = Vector2(0, -16)
+rotation = -0.29203
+texture = ExtResource("2_lqlds")
+offset = Vector2(0, -8)
+
+[node name="LArm" type="Sprite2D" parent="Body"]
+position = Vector2(-15, -16)
+rotation = -2.00884
+texture = ExtResource("3_5oagx")
+offset = Vector2(-0.0280602, -15.7627)
+
+[node name="RArm" type="Sprite2D" parent="Body"]
+position = Vector2(16, -16)
+rotation = -1.13275
+texture = ExtResource("3_5oagx")
+offset = Vector2(-0.0280616, 15.9595)
+
+[node name="LLeg" type="Sprite2D" parent="Body"]
+position = Vector2(16, 16)
+texture = ExtResource("3_5oagx")
+offset = Vector2(0, 16)
+
+[node name="RLeg" type="Sprite2D" parent="Body"]
+position = Vector2(-16, 16)
+texture = ExtResource("3_5oagx")
+offset = Vector2(0, 16)

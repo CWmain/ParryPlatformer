@@ -29,6 +29,7 @@ const WALL_DRAG_SPEED_DOWN = 500
 @onready var sword = $Sword
 @onready var coyote_time = $coyoteTime
 @onready var ledge_detection = $LedgeDetection
+@onready var ani_player = $SpriteBodyManager.animation_player
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
@@ -108,6 +109,11 @@ func _physics_process(delta):
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
 	var direction = Input.get_axis("left", "right")
+	if direction != 0:
+		ani_player.play("walk")
+	else:
+		ani_player.play("idle")
+		
 
 	if is_on_floor():
 		ground_velocity(direction, delta)
